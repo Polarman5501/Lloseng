@@ -27,6 +27,8 @@ public class ChatClient extends AbstractClient
    */
   ChatIF clientUI; 
 
+  private String loginID;
+
   
   //Constructors ****************************************************
   
@@ -43,7 +45,19 @@ public class ChatClient extends AbstractClient
   {
     super(host, port); //Call the superclass constructor
     this.clientUI = clientUI;
+    this.loginID = "Guest";
     openConnection();
+    sendToServer("#loginID " + loginID);
+  }
+
+  public ChatClient(String loginID, String host, int port, ChatIF clientUI) 
+    throws IOException 
+  {
+    super(host, port); //Call the superclass constructor
+    this.clientUI = clientUI;
+    this.loginID = loginID; 
+    openConnection();
+    sendToServer("#loginID " + loginID);
   }
 
   
@@ -56,7 +70,7 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromServer(Object msg) 
   {
-    clientUI.display(msg.toString());
+      clientUI.display(msg.toString());
   }
 
   /**
@@ -68,16 +82,83 @@ public class ChatClient extends AbstractClient
   {
     try
     {
-      sendToServer(message);
+      if(message.charAt(0) == '#'){
+        if(message.equals("#quit")){
+          quit();
+          clientUI.display("The connection to the server has been terminated");
+        }
+        else if(message.equals("#logoff")){
+          clientUI.display("Logging off...");
+          closeConnection();
+        }
+        else if(message.startsWith("#sethost")){
+          if(!isConnected()){ //client are all logged off 
+            try{
+              String hostName = message.substring(9); //host name begins after the space and starts at 9th index
+              setHost(hostName);
+              clientUI.display("The new host is set to: " + hostName);
+            }
+            catch(Exception e){
+              clientUI.display("Error... couldn't set host");
+            }
+          }
+          else{
+              System.out.println("Client is still connected to server! Cannot set an host...");
+            }
+        }
+        else if(message.startsWith("#setport")){
+           if(!isConnected()){ //client are all logged off 
+            try{
+              String setPort = message.substring(9); //port number begins after the space and starts at 9th index
+              int setPortInt = Integer.parseInt(setPort);
+              setPort(setPortInt);
+              clientUI.display("The new port is set to: " + setPortInt);
+            }
+            catch(Exception e){
+              clientUI.display("Error... couldn't set the port");
+            }
+          }
+          else{
+             clientUI.display("Client is still connected to server! Cannot set a port...");
+            }
+        }
+        else if(message.equals("#login")){
+          if(!isConnected()){ //client are all logged off 
+            openConnection();
+          }else{
+            clientUI.display("Error ... Must disconnect from the server!");
+          }
+        }
+        else if(message.equals("#gethost")){
+          clientUI.display(getHost());
+        }
+        else if(message.equals("#getport")){
+          clientUI.display(Integer.toString(getPort()));
+        }
+        else if(message.startsWith("#")){
+          clientUI.display("Invalid command!");
+        }
+      }else{
+        sendToServer(message);
+      }
     }
     catch(IOException e)
     {
-      clientUI.display
-        ("Could not send message to server.  Terminating client.");
+      clientUI.display("Could not send message to server.  Terminating client.");
       quit();
     }
   }
-  
+
+  //Hook method overridin from AbstractClient (A.M.)
+  public void connectionClosed(){
+    System.out.println("Server has shut down and quitting!");
+  }
+
+  //Hook method overridin from AbstractClient (A.M.)
+  public void connectionException(){
+    quit();
+  }
+
   /**
    * This method terminates the client.
    */
@@ -92,3 +173,4 @@ public class ChatClient extends AbstractClient
   }
 }
 //End of ChatClient class
+  

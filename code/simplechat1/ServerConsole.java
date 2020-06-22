@@ -16,7 +16,7 @@ import common.*;
  * @author Dr Robert Lagani&egrave;re
  * @version July 2000
  */
-public class ClientConsole implements ChatIF 
+public class ServerConsole implements ChatIF 
 {
   //Class variables *************************************************
   
@@ -28,30 +28,28 @@ public class ClientConsole implements ChatIF
   //Instance variables **********************************************
   
   /**
-   * The instance of the client that created this ConsoleChat.
+   * The instance of the EchoServer class.
    */
-  ChatClient client;
+  EchoServer server;
 
   
   //Constructors ****************************************************
 
   /**
    * Constructs an instance of the ClientConsole UI.
-   *
-   * @param host The host to connect to.
    * @param port The port to connect on.
    */
-  public ClientConsole(String loginID, String host, int port) 
+  public ServerConsole(int port) 
   {
+      server = new EchoServer(port, this);
+    
     try 
     {
-      client= new ChatClient(loginID, host, port, this);
+      server.listen();
     } 
-    catch(IOException exception) 
+    catch(Exception ex) 
     {
-      System.out.println("Error: Can't setup connection!"
-                + " Terminating client.");
-      System.exit(1);
+      System.out.println("Server encountered an error when listening to new clients");
     }
   }
 
@@ -73,7 +71,7 @@ public class ClientConsole implements ChatIF
       while (true) 
       {
         message = fromConsole.readLine();
-        client.handleMessageFromClientUI(message);
+        server.handleMessageFromServerUI(message);
       }
     } 
     catch (Exception ex) 
@@ -100,36 +98,21 @@ public class ClientConsole implements ChatIF
   /**
    * This method is responsible for the creation of the Client UI.
    *
-   * @param args[0] The loginID to connect to 
-   * @param args[1] The host to connect to.
-   * @param args[2] The port to connect to //obtains the port number from command line A.M. 
-                    (must do java -classpath ..\..\code;. ClientConsole "" port #)
+   * @param args[0] The port to connect to.
    */
   public static void main(String[] args) 
   {
-    String loginID = "";
-    String host = "";
     int port = 0;  //The port number
 
-    try{
-      loginID = args[0];
-    }
-    catch(ArrayIndexOutOfBoundsException e){
-        System.out.println("You need to enter a login ID. Terminating client..");
-      System.exit(1);
-    }
     try
     {
-      host = args[1];
-
-      port = Integer.parseInt(args[2]);
+      port = Integer.parseInt(args[0]);
     }
     catch(ArrayIndexOutOfBoundsException e)
     {
-      host = "localhost";
       port = DEFAULT_PORT;
     }
-    ClientConsole chat= new ClientConsole(loginID, host, port);
+    ServerConsole chat= new ServerConsole(port);
     chat.accept();  //Wait for console data
   }
 }
