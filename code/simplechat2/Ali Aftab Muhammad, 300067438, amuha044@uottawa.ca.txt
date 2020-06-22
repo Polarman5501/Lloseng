@@ -1,0 +1,276 @@
+Testcase 2001
+System: Simple Chat                Phase: 2 to 4
+Server startup check with default arguments
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. EchoServer
+Server listening for connections on port 5555
+
+
+Testcase 2002
+System: Simple Chat                Phase: 2
+Client startup check without a login
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole
+You need to enter a login ID. Terminating client..
+
+Testcase 2003
+System: Simple Chat                Phase: 2
+Client startup check with a login and without a server
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4343
+Error: Can't setup connection! Terminating client.
+
+Testcase 2004
+System: Simple Chat                Phase: 2
+Client connection with default arguments
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. EchoServer
+Server listening for connections on port 5555
+A client has connected to the server!
+Message received: #loginID 4343 from  4343, Users IP: 127.0.0.1 (127.0.0.1)
+ 4343 has logged on!
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4343
+>  4343 has logged on!
+                          
+Testcase 2005
+System: Simple Chat                Phase: 2
+Client Data transfer and data echo
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4545
+>  4545 has logged on!
+hello
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. EchoServer
+Server listening for connections on port 5555
+A client has connected to the server!
+Message received: #loginID 4545 from  4545, Users IP: 127.0.0.1 (127.0.0.1)
+ 4545 has logged on!
+Message received: hello from  4545, Users IP: 127.0.0.1 (127.0.0.1)
+
+Testcase 2006
+System: Simple Chat                Phase: 2
+Multiple local connections
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ServerConsole
+Server listening for connections on port 5555
+A client has connected to the server!
+Message received: #loginID 4545 from  4545, Users IP: 127.0.0.1 (127.0.0.1)
+ 4545 has logged on!
+A client has connected to the server!
+Message received: #loginID 4646 from  4646, Users IP: 127.0.0.1 (127.0.0.1)
+ 4646 has logged on!
+Message received: lol from  4646, Users IP: 127.0.0.1 (127.0.0.1)
+Message received: haha from  4545, Users IP: 127.0.0.1 (127.0.0.1)
+xd
+> xd
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4545
+>  4545 has logged on!
+haha
+> SERVER MSG> xd
+                                                                                                                        
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code;. ClientConsole 4646
+>  4646 has logged on!
+lol
+> SERVER MSG> xd
+
+
+Testcase 2007
+System: Simple Chat                Phase: 2 and subsequent
+Server termination command check
+Severity: 1
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ServerConsole
+Server listening for connections on port 5555
+#quit
+Server is quitting..
+Server has stopped listening for connections.
+
+Testcase 2008
+System: Simple Chat                Phase: 2 and 3
+Server stop check
+Severity: 2
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ServerConsole
+Server listening for connections on port 5555
+A new client is attempting to connect to the server.
+Message received: #loginID 4555 from  4555, Users IP: 127.0.0.1 (127.0.0.1)
+ 4555 has logged on.
+#stop
+Server has stopped listening for connections.
+Message received: hello from  4555, Users IP: 127.0.0.1 (127.0.0.1)
+#start
+Server listening for connections on port 5555
+A new client is attempting to connect to the server.
+Message received: #loginID 5454 from  5454, Users IP: 127.0.0.1 (127.0.0.1)
+ 5454 has logged on.
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4555
+>  4555 has logged on.
+>  4555 > #loginID 4555
+> WARNING - Server has stopped listening for connections.
+hello
+>  4555 > hello
+>  5454 > #loginID 5454
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 5454
+>  5454 has logged on.
+>  5454 > #loginID 5454
+
+Testcase 2009
+System: Simple Chat                Phase: 2 and 3
+Server close command check
+Severity: 2
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ServerConsole
+Server listening for connections on port 5555
+A new client is attempting to connect to the server.
+Message received: #loginID 5454 from  5454, Users IP: 127.0.0.1 (127.0.0.1)
+ 5454 has logged on.
+#close
+Server has stopped listening for connections.
+ 5454 has disconnected from the server.
+
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 5454
+>  5454 has logged on.
+>  5454 > #loginID 5454
+lol
+> Could not send message to server.  Terminating client.
+Server has shut down and quitting!
+
+Testcase 2010
+System: Simple Chat                Phase: 2 and subsequent
+Client termination command check
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 3434
+Error: Can't setup connection! Terminating client.
+
+Testcase 2011
+System: Simple Chat                Phase: 2 and subsequent
+Client logoff check
+Severity: 1
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. EchoServer
+Server listening for connections on port 5555
+A new client is attempting to connect to the server.
+Message received: #loginID 3434 from  3434, Users IP: 127.0.0.1 (127.0.0.1)
+ 3434 has logged on.
+ 3434 has disconnected from the server.
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 3434
+>  3434 has logged on.
+>  3434 > #loginID 3434
+#logoff
+> Logging off...
+Server has shut down and quitting!
+
+Testcase 2012
+System: Simple Chat                Phase: 2 and subsequent
+Client host and port setup commands check
+Severity: 1
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4555
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4555
+>  4555 has logged on.
+>  4555 > #loginID 4555
+#logoff
+> Logging off...
+Server has shut down and quitting!
+#sethost polarhost
+> The new host is set to: polarhost
+#setport 1234
+> The new port is set to: 1234
+                                                                                                                        
+Testcase 2013
+System: Simple Chat                Phase: 2 and subsequent
+Starting a server on a non-default port
+Severity: 1
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ServerConsole 1234
+Server listening for connections on port 1234
+
+Testcase 2014
+System: Simple Chat                Phase: 2 and subsequent
+Connecting a client to a non-default host or port
+Severity: 1
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. EchoServer 1234
+Server listening for connections on port 1234
+A new client is attempting to connect to the server.
+Message received: #loginID 4555 from  4555, Users IP: 127.0.0.1 (127.0.0.1)
+ 4555 has logged on.
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4555 "localhost" 1234
+>  4555 has logged on.
+>  4555 > #loginID 4555
+
+Testcase 2015
+System: Simple Chat                Phase: 2
+Multiple remote clients disconnections and reconnections
+Severity: 1
+
+Testcase 2017
+System: Simple Chat                Phase: 2 and subsequent
+Client quitting or logging off a server with multiple connections
+Severity: 1
+
+
+C:\Users\aliaf\Downloads\Lloseng-OcsfPhase2\Lloseng-OcsfPhase2\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. EchoServer
+Server listening for connections on port 5555
+A new client is attempting to connect to the server.
+Message received: #loginID 4555 from  4555, Users IP: 127.0.0.1 (127.0.0.1)
+ 4555 has logged on.
+A new client is attempting to connect to the server.
+Message received: #loginID 4545 from  4545, Users IP: 127.0.0.1 (127.0.0.1)
+ 4545 has logged on.
+A new client is attempting to connect to the server.
+Message received: #loginID 7005 from  7005, Users IP: 127.0.0.1 (127.0.0.1)
+ 7005 has logged on.
+ 4545 has disconnected from the server.
+ 4555 has disconnected from the server.
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4545
+>  4545 has logged on.
+>  4545 > #loginID 4545
+>  7005 > #loginID 7005
+#quit
+Server has shut down and quitting!
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 4555
+>  4555 has logged on.
+>  4555 > #loginID 4555
+>  4545 > #loginID 4545
+>  7005 > #loginID 7005
+>  4545 has disconnected from the server.
+#logoff
+> Logging off...
+Server has shut down and quitting!
+
+C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code\simplechat1>java -classpath C:\Users\aliaf\OneDrive\Documents\seg2105\a1\Lloseng\code;. ClientConsole 7005
+>  7005 has logged on.
+>  7005 > #loginID 7005
+>  4545 has disconnected from the server.
+>  4555 has disconnected from the server.
+
+
+
+
+
+
+
+
+
+                                                                                        
+
+
+
